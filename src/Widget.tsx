@@ -49,15 +49,7 @@ const Widget = () => {
   )
 
   return (
-    <AutoLayout
-      direction="vertical"
-      verticalAlignItems="center"
-      spacing={16}
-      padding={16}
-      cornerRadius={8}
-      fill="#FFFFFF"
-      stroke="#E6E6E6"
-    >
+    <WidgetContainer>
       <Input
         value={title}
         onTextEditEnd={(e) => setTitle(e.characters)}
@@ -73,6 +65,6 @@ const Widget = () => {
           deleteProperty={deleteProperty}
         />
       )}
-    </AutoLayout>
+    </WidgetContainer>
   )
 }
