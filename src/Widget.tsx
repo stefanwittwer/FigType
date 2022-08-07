@@ -4,6 +4,7 @@ const { useSyncedState, useSyncedMap, usePropertyMenu, AutoLayout, Input, SVG, T
 
 const Widget = () => {
   const [title, setTitle] = useSyncedState("title", "")
+  const [description, setDescription] = useSyncedState("description", "")
 
   const [propertyIds, setPropertyIds] = useSyncedState<string[]>("propertyKeys", [])
   const properties = useSyncedMap<Property>("properties")
@@ -50,12 +51,24 @@ const Widget = () => {
 
   return (
     <WidgetContainer>
-      <Input
-        value={title}
-        onTextEditEnd={(e) => setTitle(e.characters)}
-        placeholder="Entity name"
-        width={370}
-      />
+      <AutoLayout direction="vertical" spacing={10} padding={{ bottom: 2 }}>
+        <Input
+          value={title}
+          onTextEditEnd={(e) => setTitle(e.characters)}
+          placeholder="Entity name"
+          width={370}
+          fontSize={18}
+        />
+        <Input
+          value={description}
+          onTextEditEnd={(e) => setDescription(e.characters)}
+          placeholder="Describe your entity here (e.g. what it represents)"
+          width={370}
+          fontSize={12.5}
+          fontWeight={400}
+          lineHeight={20}
+        />
+      </AutoLayout>
       {propertyIds.length === 0 ? (
         <PropertiesEmptyState />
       ) : (
