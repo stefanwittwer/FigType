@@ -18,7 +18,13 @@ const PropertyTypeIcon = (props: { type: PropertyType; size?: number }) => {
       return <TypeIconEnum sizeAttributes={sizeAttributes} />
     case "id":
       return <TypeIconID sizeAttributes={sizeAttributes} />
-    case "mixed":
+    case "richtext":
+      return <TypeIconRichText sizeAttributes={sizeAttributes} />
+    case "media":
+      return <TypeIconMedia sizeAttributes={sizeAttributes} />
+    case "link":
+      return <TypeIconLink sizeAttributes={sizeAttributes} />
+    case "object":
     default:
       return <TypeIconMixed sizeAttributes={sizeAttributes} />
   }

@@ -6,6 +6,9 @@ const PROPERTY_TYPE_DISPLAY_NAMES: { [key in PropertyType]: string } = {
   enum: "Enum",
   function: "Function",
   id: "ID",
-  mixed: "Mixed",
+  object: "Object",
   number: "Number",
+  richtext: "Rich Text",
+  media: "Media",
+  link: "Link",
 }

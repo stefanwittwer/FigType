@@ -3,11 +3,14 @@ const PropertyTypes = [
   "boolean",
   "number",
   "timestamp",
-  "mixed",
+  "object",
   "array",
   "function",
   "enum",
   "id",
+  "richtext",
+  "media",
+  "link",
 ] as const
 
 type PropertyType = typeof PropertyTypes[number]

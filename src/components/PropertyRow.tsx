@@ -7,7 +7,7 @@ interface PropertyRowProps {
 const PropertyRow = (props: PropertyRowProps) => {
   const hasCustomTypeInfo =
     props.property.type === "array" ||
-    props.property.type === "mixed" ||
+    props.property.type === "object" ||
     props.property.type === "enum"
   return (
     <AutoLayout verticalAlignItems="center" spacing={12}>
