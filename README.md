@@ -15,7 +15,7 @@
 
 ## What is FigType?
 
-🪄 FigType is a widget that makes modeling simple types and entities in Figma and FigJam made easy.
+🪄 FigType is a widget that makes modeling simple types and entities in Figma and FigJam easy.
 
 Works great for planning out:
 
