@@ -53,7 +53,7 @@ const Widget = () => {
       <Input
         value={title}
         onTextEditEnd={(e) => setTitle(e.characters)}
-        placeholder="Name of your type"
+        placeholder="Entity name"
         width={370}
       />
       {propertyIds.length === 0 ? (
