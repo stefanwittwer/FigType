@@ -1,4 +1,4 @@
-function PropertyTypeIcon(props: { type: PropertyType; size?: number }) {
+const PropertyTypeIcon = (props: { type: PropertyType; size?: number }) => {
   const size = props.size ?? 24
   const sizeAttributes = `width="${size}" height="${size}"`
   switch (props.type) {

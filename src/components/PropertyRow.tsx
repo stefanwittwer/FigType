@@ -4,7 +4,7 @@ interface PropertyRowProps {
   deleteProperty: () => void
 }
 
-function PropertyRow(props: PropertyRowProps) {
+const PropertyRow = (props: PropertyRowProps) => {
   const hasCustomTypeInfo =
     props.property.type === "array" ||
     props.property.type === "mixed" ||

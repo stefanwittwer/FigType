@@ -2,7 +2,7 @@ const { widget } = figma
 const { useSyncedState, useSyncedMap, usePropertyMenu, AutoLayout, Input, SVG, Text, waitForTask } =
   widget
 
-function Widget() {
+const Widget = () => {
   const [title, setTitle] = useSyncedState("title", "")
 
   const [propertyIds, setPropertyIds] = useSyncedState<string[]>("propertyKeys", [])
