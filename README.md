@@ -1,36 +1,40 @@
-Below are the steps to get your widget running. You can also find instructions at:
+<p align="center">
+    <img width="20%" src="https://raw.githubusercontent.com/stefanwittwer/FigType/main/static/figtype-logo.svg" alt="FigType Icon" />
+    <h1 align="center">FigType</h1>
+</p>
+<p align="center">
+    The easiest way to model anything in Figma.
+</p>
 
-https://www.figma.com/widget-docs/setup-guide/
+<p align="center">
+  <a href="https://github.com/stefanwittwer/FigType/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/stefanwittwer/FigType" alt="License" />
+  </a>
+  <img src="https://img.shields.io/badge/TypeScript-%23007ACC.svg?logo=typescript&logoColor=white" alt="TypeScript" />
+</p>
 
-This widget template uses Typescript and NPM, two standard tools in creating JavaScript applications.
+## What is FigType?
 
-First, download Node.js which comes with NPM. This will allow you to install TypeScript and other
-libraries. You can find the download link here:
+🪄 FigType is a widget that makes modeling simple types and entities in Figma and FigJam made easy.
 
-https://nodejs.org/en/download/
+Works great for planning out:
 
-Next, install TypeScript and the latest type definitions by running:
+- Interface types, database models, classes, etc. in development;
+- Properties for design system components;
+- Fields in a marketing website CMS
 
-npm install
+## Screenshot
 
-If you are familiar with JavaScript, TypeScript will look very familiar. In fact, valid JavaScript code
-is already valid Typescript code.
+![Screenshot of FigType widget](https://raw.githubusercontent.com/stefanwittwer/FigType/main/static/screenshot.png)
 
-TypeScript adds type annotations to variables. This allows code editors such as Visual Studio Code
-to provide information about the Figma API while you are writing code, as well as help catch bugs
-you previously didn't notice.
+## Build scripts
 
-For more information, visit https://www.typescriptlang.org/
+This codebase was initially created through Figma's "New widget..." menu in the desktop app.
+However, some modifications to the build scripts and `tsconfig.json` have been made:
 
-Using TypeScript requires a compiler to convert TypeScript (code.tsx) into JavaScript (code.js)
-for the browser to run.
+- There is an additional `postbuild` step that is automatically executed when compiling the TypeScript source, which automatically appends the line `widget.register(Widget);` to the very end of the compiled JavaScript. This is a workaround for an issue where this line of code would be executed to early when the Widget code is split up into multiple files, resulting in "Lexical variable is not initialised" crashes at runtime.
+- `tsconfig.json` has been modified to bundle all .ts and .tsx source files into a single, combined `code.js`. This codebase does not use modules because Figma widgets don't seem to support `import` and `export`.
 
-We recommend writing TypeScript code using Visual Studio code:
+## License and copyright
 
-1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
-2. Open this directory in Visual Studio Code.
-3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
-   then select "npm: watch". You will have to do this again every time
-   you reopen Visual Studio Code.
-
-That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
+FigType's source code is available under the MIT license. [Read the full license terms here.](https://github.com/stefanwittwer/FigType/blob/main/LICENSE.md)
