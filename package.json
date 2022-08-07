@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "description": "Your Figma widget",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "watch": "npm run build -- --watch"
+    "postbuild": "echo 'widget.register(Widget);' >> ./code.js",
+    "build": "tsc -p tsconfig.json && yarn run postbuild",
+    "watch": "tsc-watch -p tsconfig.json --onSuccess \"yarn run postbuild\""
   },
-  "author": "",
-  "license": "",
+  "author": "Stefan Wittwer",
+  "license": "UNLICENSED",
   "devDependencies": {
     "@figma/plugin-typings": "*",
     "@figma/widget-typings": "*",
+    "tsc-watch": "^5.0.3",
     "typescript": "*"
   }
 }
