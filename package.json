@@ -4,7 +4,7 @@
   "description": "Your Figma widget",
   "scripts": {
     "postbuild": "echo 'widget.register(Widget);' >> ./code.js",
-    "build": "tsc -p tsconfig.json && yarn run postbuild",
+    "build": "tsc -p tsconfig.json",
     "watch": "tsc-watch -p tsconfig.json --onSuccess \"yarn run postbuild\""
   },
   "author": "Stefan Wittwer",
