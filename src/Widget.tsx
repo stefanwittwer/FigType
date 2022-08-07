@@ -51,24 +51,12 @@ const Widget = () => {
 
   return (
     <WidgetContainer>
-      <AutoLayout direction="vertical" spacing={10} padding={{ bottom: 2 }}>
-        <Input
-          value={title}
-          onTextEditEnd={(e) => setTitle(e.characters)}
-          placeholder="Entity name"
-          width={370}
-          fontSize={18}
-        />
-        <Input
-          value={description}
-          onTextEditEnd={(e) => setDescription(e.characters)}
-          placeholder="Describe your entity here (e.g. what it represents)"
-          width={370}
-          fontSize={12.5}
-          fontWeight={400}
-          lineHeight={20}
-        />
-      </AutoLayout>
+      <EnitityDetails
+        title={title}
+        description={description}
+        setTitle={setTitle}
+        setDescription={setDescription}
+      />
       {propertyIds.length === 0 ? (
         <PropertiesEmptyState />
       ) : (
