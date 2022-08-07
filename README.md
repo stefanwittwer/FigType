@@ -32,7 +32,7 @@ Works great for planning out:
 This codebase was initially created through Figma's "New widget..." menu in the desktop app.
 However, some modifications to the build scripts and `tsconfig.json` have been made:
 
-- There is an additional `postbuild` step that is automatically executed when compiling the TypeScript source, which automatically appends the line `widget.register(Widget);` to the very end of the compiled JavaScript. This is a workaround for an issue where this line of code would be executed to early when the Widget code is split up into multiple files, resulting in "Lexical variable is not initialised" crashes at runtime.
+- There is an additional `postbuild` step that is automatically executed when compiling the TypeScript source, which automatically appends the line `widget.register(Widget);` to the very end of the compiled JavaScript. This is a workaround for an issue where this line of code would be executed too early when the Widget code is split up into multiple files, resulting in "Lexical variable is not initialised" crashes at runtime.
 - `tsconfig.json` has been modified to bundle all .ts and .tsx source files into a single, combined `code.js`. This codebase does not use modules because Figma widgets don't seem to support `import` and `export`.
 
 ## License and copyright
