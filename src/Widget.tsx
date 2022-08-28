@@ -1,5 +1,5 @@
 const { widget } = figma
-const { useSyncedState, useSyncedMap, usePropertyMenu, AutoLayout, Input, SVG, Text, waitForTask } =
+const { useSyncedState, useSyncedMap, usePropertyMenu, AutoLayout, Frame, Input, SVG, Text, waitForTask } =
   widget
 
 const Widget = () => {
@@ -20,6 +20,16 @@ const Widget = () => {
     properties.delete(propertyToDelete)
     setPropertyIds([...propertyIds].filter((propertyId) => propertyId !== propertyToDelete))
   }
+  const moveProperty = (propertyId: string, offset: 1 | -1) => {
+    const idx = propertyIds.indexOf(propertyId)
+    if (idx == -1 || idx + offset >= propertyIds.length || idx + offset <= -1) {
+      return;
+    }
+    const cpy = [...propertyIds];
+    [cpy[idx], cpy[idx + offset]] = [cpy[idx + offset], cpy[idx]];
+    setPropertyIds(cpy)
+  }
+
 
   usePropertyMenu(
     [
@@ -64,6 +74,8 @@ const Widget = () => {
           properties={properties}
           propertyIds={propertyIds}
           deleteProperty={deleteProperty}
+          moveDownProperty={(propertyId) => moveProperty(propertyId, 1)}
+          moveUpProperty={(propertyId) => moveProperty(propertyId, -1)}
         />
       )}
     </WidgetContainer>
