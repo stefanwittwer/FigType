@@ -1,7 +1,12 @@
 interface PropertyRowProps {
+  propertyId: string
+  canMoveDown: boolean
+  canMoveUp: boolean
   property: Property
   updateProperty: (changes: Partial<Property>) => void
   deleteProperty: () => void
+  moveUpProperty: () => void
+  moveDownProperty: () => void
 }
 
 const PropertyRow = (props: PropertyRowProps) => {
@@ -44,17 +49,14 @@ const PropertyRow = (props: PropertyRowProps) => {
           </Text>
         )}
       </AutoLayout>
-      <AutoLayout
-        width={28}
-        horizontalAlignItems="center"
-        opacity={0.3}
-        cornerRadius={4}
-        padding={4}
-        hoverStyle={{ opacity: 1, fill: "#eee" }}
-        onClick={() => props.deleteProperty()}
-      >
-        <RemoveIcon />
-      </AutoLayout>
+      <PropertyRowMoreButton
+        propertyId={props.propertyId}
+        canMoveUp={props.canMoveUp}
+        canMoveDown={props.canMoveDown}
+        moveUpProperty={() => props.moveUpProperty()}
+        moveDownProperty={() => props.moveDownProperty()}
+        deleteProperty={() => props.deleteProperty()}
+      />
     </AutoLayout>
   )
 }
