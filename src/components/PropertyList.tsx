@@ -15,13 +15,13 @@ const PropertyList = (props: PropertyListProps) => (
           key={propertyId}
           property={property}
           propertyId={propertyId}
-          canMoveDown={index < props.propertyIds.length - 1}
-          canMoveUp={index > 0}
           updateProperty={(changes) =>
             props.properties.set(propertyId, { ...property, ...changes })
           }
-          moveDownProperty={() => props.moveDownProperty(propertyId)}
+          canMoveUp={index > 0}
+          canMoveDown={index < props.propertyIds.length - 1}
           moveUpProperty={() => props.moveUpProperty(propertyId)}
+          moveDownProperty={() => props.moveDownProperty(propertyId)}
           deleteProperty={() => props.deleteProperty(propertyId)}
         />
       )

@@ -51,11 +51,11 @@ const PropertyRow = (props: PropertyRowProps) => {
       </AutoLayout>
       <PropertyRowMoreButton
         propertyId={props.propertyId}
-        canMoveDown={props.canMoveDown}
         canMoveUp={props.canMoveUp}
-        deleteProperty={() => props.deleteProperty()}
+        canMoveDown={props.canMoveDown}
         moveUpProperty={() => props.moveUpProperty()}
         moveDownProperty={() => props.moveDownProperty()}
+        deleteProperty={() => props.deleteProperty()}
       />
     </AutoLayout>
   )

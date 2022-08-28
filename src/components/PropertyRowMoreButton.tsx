@@ -1,7 +1,7 @@
 interface PropertyRowMoreButtonProps {
     propertyId: string;
-    canMoveDown: boolean
     canMoveUp: boolean
+    canMoveDown: boolean
     moveUpProperty: () => void
     moveDownProperty: () => void
     deleteProperty: () => void
@@ -28,8 +28,8 @@ const PropertyRowMoreButton = (props: PropertyRowMoreButtonProps) => {
                 }}>
                     <AutoLayout horizontalAlignItems="center" spacing={2}>
                         <IconButton icon={RemoveIcon} onClick={props.deleteProperty} />
-                        <IconButton disabled={!props.canMoveDown} icon={MoveDownIcon} onClick={props.moveDownProperty} />
                         <IconButton disabled={!props.canMoveUp} icon={MoveUpIcon} onClick={props.moveUpProperty} />
+                        <IconButton disabled={!props.canMoveDown} icon={MoveDownIcon} onClick={props.moveDownProperty} />
                     </AutoLayout>
                 </Frame>
             )}
