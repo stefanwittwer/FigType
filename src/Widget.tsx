@@ -14,6 +14,7 @@ const {
 const Widget = () => {
   const [title, setTitle] = useSyncedState("title", "")
   const [description, setDescription] = useSyncedState("description", "")
+  const [colour, setColour] = useSyncedState<string>("colour", EntityColours.None)
 
   const [propertyIds, setPropertyIds] = useSyncedState<string[]>("propertyKeys", [])
   const properties = useSyncedMap<Property>("properties")
@@ -42,6 +43,19 @@ const Widget = () => {
   usePropertyMenu(
     [
       {
+        itemType: "color-selector",
+        tooltip: "Entity colour",
+        options: Object.keys(EntityColours).map((colourOption) => ({
+          option: EntityColours[colourOption],
+          tooltip: colourOption,
+        })),
+        propertyName: "entity-colour",
+        selectedOption: colour,
+      },
+      {
+        itemType: "separator",
+      },
+      {
         itemType: "dropdown",
         propertyName: "property-type",
         options: PropertyTypes.map((type) => ({
@@ -63,12 +77,14 @@ const Widget = () => {
         addProperty()
       } else if (event.propertyName === "property-type" && event.propertyValue) {
         setTypeToAdd(event.propertyValue as PropertyType)
+      } else if (event.propertyName === "entity-colour" && event.propertyValue) {
+        setColour(event.propertyValue)
       }
     },
   )
 
   return (
-    <WidgetContainer>
+    <WidgetContainer keyColour={colour}>
       <EnitityDetails
         title={title}
         description={description}

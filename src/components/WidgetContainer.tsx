@@ -1,13 +1,12 @@
 interface WidgetContainerProps {
   children?: FigmaDeclarativeNode | FigmaDeclarativeNode[]
+  keyColour?: string
 }
 
 const WidgetContainer = (props: WidgetContainerProps) => (
   <AutoLayout
     direction="vertical"
     verticalAlignItems="center"
-    spacing={16}
-    padding={16}
     cornerRadius={8}
     fill="#FFFFFF"
     effect={[
@@ -25,6 +24,9 @@ const WidgetContainer = (props: WidgetContainerProps) => (
       },
     ]}
   >
-    {props.children}
+    <AutoLayout width="fill-parent" height={4} fill={props.keyColour || EntityColours.None} />
+    <AutoLayout spacing={16} padding={16} direction="vertical">
+      {props.children}
+    </AutoLayout>
   </AutoLayout>
 )
