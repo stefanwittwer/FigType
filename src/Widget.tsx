@@ -1,6 +1,15 @@
 const { widget } = figma
-const { useSyncedState, useSyncedMap, usePropertyMenu, AutoLayout, Frame, Input, SVG, Text, waitForTask } =
-  widget
+const {
+  useSyncedState,
+  useSyncedMap,
+  usePropertyMenu,
+  AutoLayout,
+  Frame,
+  Input,
+  SVG,
+  Text,
+  waitForTask,
+} = widget
 
 const Widget = () => {
   const [title, setTitle] = useSyncedState("title", "")
@@ -23,13 +32,12 @@ const Widget = () => {
   const moveProperty = (propertyId: string, offset: 1 | -1) => {
     const idx = propertyIds.indexOf(propertyId)
     if (idx == -1 || idx + offset >= propertyIds.length || idx + offset <= -1) {
-      return;
+      return
     }
-    const cpy = [...propertyIds];
-    [cpy[idx], cpy[idx + offset]] = [cpy[idx + offset], cpy[idx]];
+    const cpy = [...propertyIds]
+    ;[cpy[idx], cpy[idx + offset]] = [cpy[idx + offset], cpy[idx]]
     setPropertyIds(cpy)
   }
-
 
   usePropertyMenu(
     [
