@@ -25,7 +25,7 @@ const WidgetContainer = (props: WidgetContainerProps) => (
     ]}
   >
     <AutoLayout width="fill-parent" height={4} fill={props.keyColour || EntityColours.None} />
-    <AutoLayout spacing={16} padding={16} direction="vertical">
+    <AutoLayout spacing={16} padding={{ horizontal: 16, vertical: 14 }} direction="vertical">
       {props.children}
     </AutoLayout>
   </AutoLayout>
