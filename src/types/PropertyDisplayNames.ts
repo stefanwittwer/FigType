@@ -11,4 +11,5 @@ const PROPERTY_TYPE_DISPLAY_NAMES: { [key in PropertyType]: string } = {
   richtext: "Rich Text",
   media: "Media",
   link: "Link",
+  relation: "Relation"
 }

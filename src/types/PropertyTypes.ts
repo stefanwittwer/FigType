@@ -11,6 +11,7 @@ const PropertyTypes = [
   "richtext",
   "media",
   "link",
+  "relation"
 ] as const
 
 type PropertyType = typeof PropertyTypes[number]
