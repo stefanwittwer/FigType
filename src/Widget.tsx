@@ -31,21 +31,121 @@ const Widget = () => {
     setEntityId(randomId())
   }
 
+  const addPropertyToRelatedEntities = (propertyId , propertyToAdd) => {
+    let relatedWidgets = [...getRelatedWidgets()]
+
+    relatedWidgets.forEach(relatedWidget => {
+      const state = relatedWidget.widgetSyncedState
+      let relations: SyncedMap<Relation> = state["relations"]
+      const relationKeys = state["relationKeys"]
+
+      relationKeys.forEach(id => {
+        const relation = relations[id]
+
+        relation.relatedProperties.push({...propertyToAdd, propertyId: propertyId})
+      })
+
+      relatedWidget.setWidgetSyncedState(relatedWidget.widgetSyncedState, {relations: relations})
+    })
+  }
+
   const addProperty = () => {
     const propertyId = randomId()
     if (typeToAdd === "relation") {
-      let collectedEntities = []
-      figma.root.children.forEach(page => {
-        collectedEntities = [...collectedEntities, ...page.findWidgetNodesByWidgetId(figma.widgetId).map(widget => widget.widgetSyncedState)]
-      })
-
-      setAvailableEntities(collectedEntities)
+      setAvailableEntities(getWidgets().map(item => item.widgetSyncedState))
     } else {
-      properties.set(propertyId, {title: "", type: typeToAdd})
+      const newProperty = {title: "", type: typeToAdd}
+      properties.set(propertyId, newProperty)
       setPropertyIds([...propertyIds, propertyId])
+
+      addPropertyToRelatedEntities(propertyId, newProperty)
     }
   }
+
+  const updatePropertyinRelations = (propertyId: string, property: Property) => {
+    let relatedWidgets = [...getRelatedWidgets()]
+
+    relatedWidgets.forEach(relatedWidget => {
+      const state = relatedWidget.widgetSyncedState
+      let relations: SyncedMap<Relation> = state["relations"]
+      const relationKeys = state["relationKeys"]
+
+      relationKeys.forEach(id => {
+        const relation = relations[id]
+
+        let index = relation.relatedProperties.findIndex(property => property["propertyId"] === propertyId)
+        if (index !== -1) {
+          relations[id]["relatedProperties"][index] = {...property, propertyId: propertyId}
+        }
+      })
+
+      relatedWidget.setWidgetSyncedState(relatedWidget.widgetSyncedState, {relations: relations})
+    })
+  }
+
+  const updateProperty = (propertyId: string, property: Property) => {
+    properties.set(propertyId, property)
+    updatePropertyinRelations(propertyId, property)
+  }
+
+  const getWidgets = () => {
+    let collectedWidgets = []
+    figma.root.children.forEach(page => {
+      collectedWidgets = [...collectedWidgets, ...page.findWidgetNodesByWidgetId(figma.widgetId)]
+    })
+
+    return collectedWidgets
+  }
+
+  const getRelatedWidgets = () => {
+    const widgets = getWidgets()
+
+    let relatedWidgets = []
+    widgets.forEach(widget => {
+      const relations = widget.widgetSyncedState["relations"]
+      const relationKeys = widget.widgetSyncedState["relationKeys"]
+      if (relations) {
+        relationKeys.forEach(id => {
+          const relation = relations[id]
+          if (relation.relatedEntity === entityId) {
+            relatedWidgets = [...relatedWidgets, widget]
+          }
+        })
+      }
+    })
+
+    return relatedWidgets
+  }
+
+  const deletePropertyFromRelatedEntities = (propertyToDelete: string) => {
+    let relatedWidgets = [...getRelatedWidgets()]
+
+    relatedWidgets.forEach(relatedWidget => {
+      const state = relatedWidget.widgetSyncedState
+      let relations: SyncedMap<Relation> = state["relations"]
+      const relationKeys = state["relationKeys"]
+
+      relationKeys.forEach(id => {
+        const relation = relations[id]
+
+        let index = relation.relatedProperties.findIndex(property => property["propertyId"] === propertyToDelete)
+        if (index !== -1) {
+          relations[id]["relatedProperties"].splice(index, 1)
+        }
+
+        index = relation.relatedPropertiesSelected.indexOf(propertyToDelete)
+
+        if (index !== -1) {
+          relations[id]["relatedPropertiesSelected"].splice(index, 1)
+        }
+      })
+
+      relatedWidget.setWidgetSyncedState(relatedWidget.widgetSyncedState, {relations: relations})
+    })
+  }
+
   const deleteProperty = (propertyToDelete: string) => {
+    deletePropertyFromRelatedEntities(propertyToDelete)
     properties.delete(propertyToDelete)
     setPropertyIds([...propertyIds].filter((propertyId) => propertyId !== propertyToDelete))
   }
@@ -171,6 +271,7 @@ const Widget = () => {
         <PropertyList
           properties={properties}
           propertyIds={propertyIds}
+          updateProperty={updateProperty}
           deleteProperty={deleteProperty}
           moveDownProperty={(propertyId) => moveProperty(propertyId, 1)}
           moveUpProperty={(propertyId) => moveProperty(propertyId, -1)}
