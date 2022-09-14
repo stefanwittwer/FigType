@@ -90,7 +90,7 @@ const RelationRow = (props: RelationRowProps) => {
                     {props.relation.relatedProperties.length !== 0 &&
                         props.relation.relatedProperties.map((property: any) => {
                             return (
-                                <AutoLayout opacity={relatedPropertyActive(property.propertyId) ? 1 : 0.3}>
+                                <AutoLayout key={property.propertyId} opacity={relatedPropertyActive(property.propertyId) ? 1 : 0.3}>
                                     <AutoLayout verticalAlignItems="center" spacing={10}>
                                         <Text width={164} fontSize={13} opacity={0.6}>{props.relation.relatedTitle}.{property.title}</Text>
                                         <Text width={120} fontSize={13} opacity={0.6}>{property.type}</Text>
@@ -108,9 +108,6 @@ const RelationRow = (props: RelationRowProps) => {
                             )
                         })
                     }
-
-                    {/*<Text width={120} fontSize={13} opacity={0.6} >{props.relation.relatedTitle}</Text>*/}
-                    {/*<Text fontSize={13} opacity={0.6} >{props.relation.relatedTitle}</Text>*/}
                 </AutoLayout>
             </AutoLayout>
         </AutoLayout>

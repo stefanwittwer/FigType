@@ -7,7 +7,7 @@ const SelectEntity = (props: SelectEntityProps) => {
     return (
         <AutoLayout spacing={6} direction="vertical">
             {props.availableEntities.map(entity => {
-                return <EntityRow entity={entity} onSelect={props.onSelect}/>
+                return <EntityRow key={entity.entityId} entity={entity} onSelect={props.onSelect}/>
             })}
         </AutoLayout>
     )

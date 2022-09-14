@@ -3,6 +3,7 @@ const {
   useSyncedState,
   useSyncedMap,
   usePropertyMenu,
+  useEffect,
   AutoLayout,
   Frame,
   Input,
@@ -27,9 +28,12 @@ const Widget = () => {
 
   const [typeToAdd, setTypeToAdd] = useSyncedState<PropertyType>("typeToAdd", "string")
 
-  const assignEntityId = () => {
-    setEntityId(randomId())
-  }
+
+  useEffect(() => {
+    if (!entityId) {
+      setEntityId(randomId())
+    }
+  })
 
   const addPropertyToRelatedEntities = (propertyId , propertyToAdd) => {
     let relatedWidgets = [...getRelatedWidgets()]
@@ -45,7 +49,27 @@ const Widget = () => {
         relation.relatedProperties.push({...propertyToAdd, propertyId: propertyId})
       })
 
-      relatedWidget.setWidgetSyncedState(relatedWidget.widgetSyncedState, {relations: relations})
+      const syncedStates = {
+        entityId: relatedWidget.widgetSyncedState["entityId"],
+        title: relatedWidget.widgetSyncedState["title"],
+        description: relatedWidget.widgetSyncedState["description"],
+        colour: relatedWidget.widgetSyncedState["colour"],
+        propertyKeys: relatedWidget.widgetSyncedState["propertyKeys"],
+        relationKeys: relatedWidget.widgetSyncedState["relationKeys"],
+        availableEntities: relatedWidget.widgetSyncedState["availableEntities"],
+        typeToAdd: relatedWidget.widgetSyncedState["typeToAdd"],
+        showRelatedProperties: relatedWidget.widgetSyncedState["showRelatedProperties"]
+      }
+
+      const syncedMaps = {
+        "relations": relations
+      }
+
+      if (relatedWidget.widgetSyncedState["properties"]) {
+        syncedMaps["properties"] = relatedWidget.widgetSyncedState["properties"]
+      }
+
+      relatedWidget.setWidgetSyncedState(syncedStates, syncedMaps)
     })
   }
 
@@ -79,7 +103,27 @@ const Widget = () => {
         }
       })
 
-      relatedWidget.setWidgetSyncedState(relatedWidget.widgetSyncedState, {relations: relations})
+      const syncedStates = {
+        entityId: relatedWidget.widgetSyncedState["entityId"],
+        title: relatedWidget.widgetSyncedState["title"],
+        description: relatedWidget.widgetSyncedState["description"],
+        colour: relatedWidget.widgetSyncedState["colour"],
+        propertyKeys: relatedWidget.widgetSyncedState["propertyKeys"],
+        relationKeys: relatedWidget.widgetSyncedState["relationKeys"],
+        availableEntities: relatedWidget.widgetSyncedState["availableEntities"],
+        typeToAdd: relatedWidget.widgetSyncedState["typeToAdd"],
+        showRelatedProperties: relatedWidget.widgetSyncedState["showRelatedProperties"]
+      }
+
+      const syncedMaps = {
+        "relations": relations
+      }
+
+      if (relatedWidget.widgetSyncedState["properties"]) {
+        syncedMaps["properties"] = relatedWidget.widgetSyncedState["properties"]
+      }
+
+      relatedWidget.setWidgetSyncedState(syncedStates, syncedMaps)
     })
   }
 
@@ -140,7 +184,27 @@ const Widget = () => {
         }
       })
 
-      relatedWidget.setWidgetSyncedState(relatedWidget.widgetSyncedState, {relations: relations})
+      const syncedStates = {
+        entityId: relatedWidget.widgetSyncedState["entityId"],
+        title: relatedWidget.widgetSyncedState["title"],
+        description: relatedWidget.widgetSyncedState["description"],
+        colour: relatedWidget.widgetSyncedState["colour"],
+        propertyKeys: relatedWidget.widgetSyncedState["propertyKeys"],
+        relationKeys: relatedWidget.widgetSyncedState["relationKeys"],
+        availableEntities: relatedWidget.widgetSyncedState["availableEntities"],
+        typeToAdd: relatedWidget.widgetSyncedState["typeToAdd"],
+        showRelatedProperties: relatedWidget.widgetSyncedState["showRelatedProperties"]
+      }
+
+      const syncedMaps = {
+        "relations": relations
+      }
+
+      if (relatedWidget.widgetSyncedState["properties"]) {
+        syncedMaps["properties"] = relatedWidget.widgetSyncedState["properties"]
+      }
+
+      relatedWidget.setWidgetSyncedState(syncedStates, syncedMaps)
     })
   }
 
@@ -259,10 +323,7 @@ const Widget = () => {
       <EnitityDetails
         title={title}
         description={description}
-        setTitle={(title) => {
-          setTitle(title)
-          assignEntityId()
-        }}
+        setTitle={setTitle}
         setDescription={setDescription}
       />
       {propertyIds.length === 0 ? (
