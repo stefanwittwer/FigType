@@ -24,6 +24,8 @@ const PropertyTypeIcon = (props: { type: PropertyType; size?: number }) => {
       return <TypeIconMedia sizeAttributes={sizeAttributes} />
     case "link":
       return <TypeIconLink sizeAttributes={sizeAttributes} />
+    case "relation":
+      return <TypeIconRelation sizeAttributes={sizeAttributes} />
     case "object":
     default:
       return <TypeIconMixed sizeAttributes={sizeAttributes} />
